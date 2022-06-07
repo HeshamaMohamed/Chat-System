@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2022_06_06_054526) do
 
-  create_table "applications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+  create_table "applications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "token", null: false
     t.string "name", null: false
     t.integer "chats_count", null: false

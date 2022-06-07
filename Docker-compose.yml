@@ -2,24 +2,23 @@ version: '3.4'
 
 services:
   db:
-    build: mysql
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
       MYSQL_DATABASE: ChatSystem
+      MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
     volumes:
       - db:/var/run/mysqld
-    command: ["--default_authentication_plugin=mysql_native_password"]
 
   app:
     build: 
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - db
-    links: 
       - db
     ports:
       - "3000:3000"
@@ -29,13 +28,17 @@ services:
     environment:
       DB_USER: root
       DB_PASSWORD: root
+      DB_SOCKET: /var/run/mysqld/mysqld.so
       RAILS_ENV: development
       DB_NAME: ChatSystem
       DB_HOST: db
       DB_PORT: 3306
       DB_POOL: 5
-      DB_SOCKET: /var/run/mysqld/mysqlx.sock
+    links: 
+      - db
 
 volumes:
   db:
   gem_cache:
+  node_modules:
+  
