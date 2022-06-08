@@ -41,6 +41,6 @@ ActiveRecord::Schema.define(version: 2022_06_08_063711) do
   end
 
   add_foreign_key "chats", "applications", column: "application_token", primary_key: "token"
-  add_foreign_key "messages", "chats", column: "application_token", primary_key: "application_token", name: "messages_ibfk_1"
-  add_foreign_key "messages", "chats", column: "chat_number", primary_key: "chat_number", name: "messages_ibfk_1"
+  add_foreign_key "messages", "chats", column: "application_token", primary_key: "application_token", name: "messages_chats_fk"
+  add_foreign_key "messages", "chats", column: "chat_number", primary_key: "chat_number", name: "messages_chats_fk"
 end
