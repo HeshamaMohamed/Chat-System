@@ -12,8 +12,8 @@ gem 'puma', '~> 4.3.8'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-gem 'redis'
-gem 'sidekiq', '~> 6.2.1'
+gem 'redis', '4.2.0'
+gem 'sidekiq', '6.4.1'
 gem 'sidekiq-scheduler'
 gem 'composite_primary_keys', '>= 11.0', '< 12.0'
 # gem 'elasticsearch'

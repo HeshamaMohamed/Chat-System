@@ -28,6 +28,7 @@ services:
       - db
       - redis
     build: .
+    entrypoint: []
     command: bundle exec sidekiq
     restart: always
     volumes:
