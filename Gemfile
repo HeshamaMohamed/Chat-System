@@ -14,6 +14,7 @@ gem 'puma', '~> 3.11'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis'
 # gem 'sidekiq'
+gem 'composite_primary_keys', '>= 11.0', '< 12.0'
 # gem 'elasticsearch'
 # gem 'searchkick'
 # Use ActiveModel has_secure_password
