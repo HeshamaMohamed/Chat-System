@@ -14,17 +14,47 @@ services:
     volumes:
       - db:/var/run/mysqld
 
+  redis:
+    image: redis:5-alpine
+    command: redis-server
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - 'redis:/data'
+  
+  sidekiq:
+    depends_on:
+      - db
+      - redis
+    build: .
+    command: bundle exec sidekiq
+    restart: always
+    volumes:
+      - '.:/app'
+      - '/app/tmp'
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      DB_USER: root
+      DB_NAME: ChatSystem
+      DB_PASSWORD: root
+      DB_HOST: db
+    links:
+      - db
+      - redis
+
   app:
     build: 
       context: .
       dockerfile: Dockerfile
     depends_on:
       - db
+      - redis
+      - sidekiq
     ports:
       - "3000:3000"
     volumes:
       - ".:/app"
-      - gem_cache:/usr/local/bundle/gems
     environment:
       DB_USER: root
       DB_PASSWORD: root
@@ -34,11 +64,13 @@ services:
       DB_HOST: db
       DB_PORT: 3306
       DB_POOL: 5
+      REDIS_URL: redis://redis:6379/0
     links: 
       - db
+      - redis
+      - sidekiq
 
 volumes:
   db:
-  gem_cache:
-  node_modules:
+  redis:
   
