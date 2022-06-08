@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_07_041718) do
+ActiveRecord::Schema.define(version: 2022_06_08_063711) do
 
   create_table "applications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "token", null: false
@@ -30,5 +30,17 @@ ActiveRecord::Schema.define(version: 2022_06_07_041718) do
     t.index ["application_token", "chat_number"], name: "index_chats_on_application_token_and_chat_number", unique: true
   end
 
+  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.string "body", null: false
+    t.string "application_token", null: false
+    t.integer "chat_number", null: false
+    t.integer "message_number", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_token", "chat_number", "message_number"], name: "index_chats_on_application_token_chat_number_message_number", unique: true
+  end
+
   add_foreign_key "chats", "applications", column: "application_token", primary_key: "token"
+  add_foreign_key "messages", "chats", column: "application_token", primary_key: "application_token", name: "messages_ibfk_1"
+  add_foreign_key "messages", "chats", column: "chat_number", primary_key: "chat_number", name: "messages_ibfk_1"
 end
