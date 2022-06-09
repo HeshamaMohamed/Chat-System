@@ -16,4 +16,13 @@ class Api::V1::ApisController < ApplicationController
   def chat_params
     params.permit(:application_token, :chat_number)
   end
+
+  def set_message
+    @current_message = Message.find_by(message_params)
+    render json: { errors: 'Message not found' } unless @current_message
+  end
+
+  def message_params
+    params.permit(:application_token, :chat_number, :message_number)
+  end
 end
