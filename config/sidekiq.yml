@@ -1,0 +1,5 @@
+:schedule:
+  UpdateChatsCountJob:
+    every: ['40m', first_in: '120s']
+  UpdateMessagesCountJob:
+    every: ['40m', first_in: '120s']
