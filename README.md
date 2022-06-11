@@ -24,17 +24,6 @@ We shall also provide a searching feature where a client can search in the messa
 - Searchkick v4.6.3
 - Docker v20.10.14
 
-
-
-
-
-
-
-
-
-
-
-
 ## Run Locally
 
 Clone the project
@@ -61,49 +50,49 @@ Start docker container
 #### Get all applications
 
 ```http
-  GET /api/v1/applications
+GET /api/v1/applications
 ```
 
 #### Show a specific application
 
 ```http
-  GET /api/v1/applications/:token
+GET /api/v1/applications/:token
 ```
 #### Create an application
 
 ```http
-  POST /api/v1/applications
+POST /api/v1/applications
 ```
 
 #### Update a specific application
 
 ```http
-  PATCH /api/v1/applications/:token?name=AppNewName
+PATCH /api/v1/applications/:token?name=AppNewName
 ```
 ## Chats API
 
 #### Get all Chats in an application
 
 ```http
-  GET /api/v1/applications/:application_token/chats
+GET /api/v1/applications/:application_token/chats
 ```
 
 #### Show a specific chat in an application
 
 ```http
-  GET /api/v1/applications/:application_token/chats/:chat_number
+GET /api/v1/applications/:application_token/chats/:chat_number
 ```
 
 #### Create a chat in an application
 
 ```http
-  POST /api/v1/applications/:application_token/chats/
+POST /api/v1/applications/:application_token/chats/
 ```
 
 #### Search a specific chat in an application
 
 ```http
-  POST /api/v1/applications/:application_token/chats/:chat_number/search?query='message'
+POST /api/v1/applications/:application_token/chats/:chat_number/search?query='message'
 ```
 
 ## Messages API
@@ -111,41 +100,26 @@ Start docker container
 #### Get all Messages in a chat
 
 ```http
-  GET /api/v1/applications/:application_token/chats/:chat_number/messages
+GET /api/v1/applications/:application_token/chats/:chat_number/messages
 ```
 
 #### Show a specific message in a chat
 
 ```http
-  GET /api/v1/applications/:application_token/chats/:chat_number/messages/:message_number
+GET /api/v1/applications/:application_token/chats/:chat_number/messages/:message_number
 ```
 
 #### Create a message in a chat
 
 ```http
-  POST /api/v1/applications/:application_token/chats/:chat_number/messages
+POST /api/v1/applications/:application_token/chats/:chat_number/messages
 ```
 
 #### Update a specific message in a chat
 
 ```http
-  PATCH /api/v1/applications/:application_token/chats/:chat_number/search?query='message'
+PATCH /api/v1/applications/:application_token/chats/:chat_number/search?query='message'
 ```
-
-
-
-
-
-
-
-## Running Tests
-
-To run tests, run the following command
-
-```bash
-  npm run test
-```
-
 
 # Documentation of Implementation Decisions, Challenges, and learning.
 
@@ -177,7 +151,7 @@ Rails association by default doesn't support multi-column reference. So, I found
 [composite_primary_keys gem](https://github.com/composite-primary-keys/composite_primary_keys)
   
   - (implemented then discarded): I customized the has_many and belongs_to associations between chats and messages to guarantee that our queries utilize our index as a covering index.  
-    I left the implementation code commented out.
+    I left the implementation code commented out.  
     ActiveRecord migration doesn't support the creation of composite foreign keys, I had to customize it with raw SQL.
 
   - (To experiment later) while searching for ways to implement a composite index via ActiveRecord, I stumbled upon this article,  
@@ -249,7 +223,4 @@ we need to handle each, so;
 ### Searching messages using Elastic Search  
 I haven't used elastic search before. I found a few gems integrating it in ruby. as I read about them and a couple of Stackoverflow posts on the topic,
 I settled with Searchkick as it is more Rails-friendly and also more popular according to [searchkick vs elasticsearch-rails](https://ruby.libhunt.com/compare-searchkick-vs-elasticsearch-rails.)
-
-
-
 
