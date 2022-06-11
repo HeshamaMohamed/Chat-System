@@ -6,7 +6,7 @@ class Message < ApplicationRecord
 
   after_commit :reindex
 
-  validates :application_token, :chat_number, :body, presence: true
+  validates :application_token, :chat_number, :message_number, :body, presence: true
 
   belongs_to :chat, foreign_key: %i[application_token chat_number],
                     primary_key: %i[application_token chat_number]
