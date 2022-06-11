@@ -32,5 +32,21 @@ module ChatSystem
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.active_job.queue_adapter = :sidekiq
+
+    config.generators do |g|
+      g.test_framework  :rspec,
+                        fixtures: false,
+                        view_specs: false,
+                        helper_specs: false,
+                        routing_specs: false,
+                        controller_specs: true,
+                        request_specs: false
+      g.stylesheets     false
+      g.javascripts     false
+      g.jbuilder        false
+      g.helper          false
+      g.assets          false
+      g.scss            false
+    end
   end
 end
