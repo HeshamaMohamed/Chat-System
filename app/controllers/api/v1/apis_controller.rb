@@ -1,4 +1,6 @@
 class Api::V1::ApisController < ApplicationController
+  private
+
   def set_application
     @current_application = Application.find_by(application_params) # for application routes
     render json: { errors: 'Application not found' } unless @current_application

@@ -20,16 +20,10 @@ class Api::V1::MessagesController < Api::V1::ApisController
   end
 
   def update
-    if @current_message.update(message_params)
+    if @current_message.update(body: params[:body])
       render json: { 'Modified!': @current_message }, except: :id
     else
       render json: { errors: @current_message.errors.full_messages }
     end
-  end
-
-  private
-
-  def message_params
-    params.permit(:body)
   end
 end
