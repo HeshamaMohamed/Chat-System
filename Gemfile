@@ -16,8 +16,8 @@ gem 'redis', '4.2.0'
 gem 'sidekiq', '6.4.1'
 gem 'sidekiq-scheduler'
 gem 'composite_primary_keys', '>= 11.0', '< 12.0'
-# gem 'elasticsearch'
-# gem 'searchkick'
+gem 'elasticsearch' # , '< 7.14'
+gem 'searchkick' #, '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

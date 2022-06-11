@@ -1,6 +1,20 @@
 version: '3.4'
 
 services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+    volumes:
+      - .:/app
+      - /usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    environment:
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
   db:
     image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password
@@ -35,14 +49,16 @@ services:
       - '.:/app'
       - '/app/tmp'
     environment:
-      REDIS_URL: redis://redis:6379/0
       DB_USER: root
       DB_NAME: ChatSystem
       DB_PASSWORD: root
       DB_HOST: db
+      REDIS_URL: redis://redis:6379/0
+      ELASTICSEARCH_URL: http://elasticsearch:9200
     links:
       - db
       - redis
+      - elasticsearch
 
   app:
     build: 
@@ -52,6 +68,7 @@ services:
       - db
       - redis
       - sidekiq
+      - elasticsearch
     ports:
       - "3000:3000"
     volumes:
@@ -66,10 +83,12 @@ services:
       DB_PORT: 3306
       DB_POOL: 5
       REDIS_URL: redis://redis:6379/0
+      ELASTICSEARCH_URL: http://elasticsearch:9200
     links: 
       - db
       - redis
       - sidekiq
+      - elasticsearch
 
 volumes:
   db:
