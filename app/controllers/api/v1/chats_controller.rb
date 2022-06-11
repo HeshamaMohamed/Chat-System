@@ -40,8 +40,4 @@ class Api::V1::ChatsController < Api::V1::ApisController
   def application_params
     params.permit(:application_token)
   end
-
-  def search_params
-    params.permit(:query)
-  end
 end

@@ -2,7 +2,7 @@ class Api::V1::MessagesController < Api::V1::ApisController
   before_action :set_message, only: %i[show update]
 
   def index
-    @messages = Message.where(chat_params)
+    @messages = Message.where(set_chat_params)
     render json: @messages, except: :id || { errors: 'chat has no messages.' }
   end
 
@@ -20,10 +20,16 @@ class Api::V1::MessagesController < Api::V1::ApisController
   end
 
   def update
-    if @current_message.update(body: params[:body])
+    if @current_message.update(message_params)
       render json: { 'Modified!': @current_message }, except: :id
     else
       render json: { errors: @current_message.errors.full_messages }
     end
+  end
+
+  private
+
+  def message_params
+    params.permit(:body)
   end
 end
