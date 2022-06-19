@@ -13,9 +13,9 @@ class Api::V1::ApplicationsController < Api::V1::ApisController
   def create
     new_application = Application.new(application_params)
     if new_application.save
-      render json: { 'Created!': new_application }, except: :id
+      render json: { 'Created!': new_application }, except: :id, status: :created
     else
-      render json: { errors: new_application.errors.full_messages }
+      render json: { errors: new_application.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -23,7 +23,7 @@ class Api::V1::ApplicationsController < Api::V1::ApisController
     if @current_application.update(application_params)
       render json: { 'Modified!': @current_application }, except: :id
     else
-      render json: { errors: @current_application.errors.full_messages }
+      render json: { errors: @current_application.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
